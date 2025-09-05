@@ -1,0 +1,8 @@
+{
+  "expo": {
+    "name": "farm-finder-app",
+    "slug": "farm-finder-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": ["**/*"]
+  }
+}

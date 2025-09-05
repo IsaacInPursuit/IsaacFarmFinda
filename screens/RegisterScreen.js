@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/;
 
 export default function RegisterScreen({ onSwitch }) {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleRegister = async () => {
-    if (!emailRegex.test(email)) {
-      setError('Invalid email');
+    if (!usernameRegex.test(username)) {
+      setError('Invalid username');
       return;
     }
     if (!passwordRegex.test(password)) {
@@ -22,7 +22,7 @@ export default function RegisterScreen({ onSwitch }) {
       const res = await fetch('http://localhost:3000/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, password }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -40,11 +40,10 @@ export default function RegisterScreen({ onSwitch }) {
       <Text style={{ fontSize: 24, marginBottom: 16 }}>Register</Text>
       {error ? <Text style={{ color: 'red' }}>{error}</Text> : null}
       <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
+        placeholder="Username"
+        value={username}
+        onChangeText={setUsername}
         autoCapitalize="none"
-        keyboardType="email-address"
         style={{ borderWidth: 1, marginBottom: 12, padding: 8 }}
       />
       <TextInput
